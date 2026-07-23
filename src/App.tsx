@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
@@ -20,11 +19,7 @@ import {
   Quote,
 } from "lucide-react";
 
-export const Route = createFileRoute("/")({
-  component: HomePage,
-});
-
-function HomePage() {
+export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Nav />
