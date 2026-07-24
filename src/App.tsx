@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+
 import {
   ArrowRight,
   Check,
@@ -381,11 +381,6 @@ function Testimonials() {
 
 /* ---------------- Contact ---------------- */
 function Contact() {
-  const [sent, setSent] = useState(false);
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setSent(true);
-  }
   return (
     <section id="contact" className="py-28 px-6 bg-surface/40">
       <div className="mx-auto max-w-7xl">
@@ -404,7 +399,8 @@ function Contact() {
           </div>
 
           <form
-            onSubmit={onSubmit}
+            action="https://formspree.io/f/xkgqzzky"
+            method="POST"
             className="rounded-2xl border border-border bg-surface p-8 space-y-4"
           >
             <div className="grid sm:grid-cols-2 gap-4">
@@ -415,6 +411,7 @@ function Contact() {
             <div>
               <label className="text-sm text-muted-foreground mb-1.5 block">Interested Plan</label>
               <select
+                name="plan"
                 className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 defaultValue=""
               >
@@ -428,6 +425,7 @@ function Contact() {
             <div>
               <label className="text-sm text-muted-foreground mb-1.5 block">Tell Us About Your Project</label>
               <textarea
+                name="message"
                 rows={5}
                 className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                 placeholder="Goals, timeline, references..."
@@ -437,7 +435,7 @@ function Contact() {
               type="submit"
               className="w-full rounded-full bg-gradient-accent text-primary-foreground font-semibold py-3.5 hover:opacity-90 transition"
             >
-              {sent ? "Message Sent — We'll be in touch" : "Send Message"}
+              Send Message
             </button>
           </form>
         </div>
@@ -481,6 +479,12 @@ function Footer() {
         <span className="text-gradient">CODING</span>
       </div>
       <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
+      <p className="mt-2">
+        Created by{" "}
+        <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
+          NKOgallardo.link
+        </a>
+      </p>
     </footer>
   );
 }
