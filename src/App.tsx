@@ -481,6 +481,12 @@ function Footer() {
         <span className="text-gradient">CODING</span>
       </div>
       <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
+      <p className="mt-2">
+        Created by{" "}
+        <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
+          NKOgallardo.link
+        </a>
+      </p>
     </footer>
   );
 }
