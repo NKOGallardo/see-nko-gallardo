@@ -5,6 +5,7 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: "/see-nko-gallardo/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
