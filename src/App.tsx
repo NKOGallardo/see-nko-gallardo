@@ -533,20 +533,23 @@ function ContactRow({ icon: Icon, label, href }: { icon: typeof Mail; label: str
 function Footer() {
   return (
     <footer className="border-t border-border py-10 px-6 text-center text-sm text-muted-foreground">
-      <div className="font-display font-bold text-lg">
-        <span className="text-foreground">NKO</span>
-        <span className="text-gradient">CODING</span>
-      </div>
-      <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
-      <p className="mt-2">
-        Created by{" "}
-        <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
-          NKOgallardo.link
-        </a>
-      </p>
+      <ScrollReveal direction="up">
+        <div className="font-display font-bold text-lg">
+          <span className="text-foreground">NKO</span>
+          <span className="text-gradient">CODING</span>
+        </div>
+        <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
+        <p className="mt-2">
+          Created by{" "}
+          <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
+            NKOgallardo.link
+          </a>
+        </p>
+      </ScrollReveal>
     </footer>
   );
 }
+
 
 /* ---------------- Section helpers ---------------- */
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
