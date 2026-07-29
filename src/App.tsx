@@ -1,4 +1,5 @@
 
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -18,6 +19,48 @@ import {
   LifeBuoy,
   Quote,
 } from "lucide-react";
+
+function ScrollReveal({
+  children,
+  direction = "left",
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  direction?: "left" | "right" | "up";
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal-${direction} ${visible ? "reveal-visible" : ""} ${className}`}
+      style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
+    >
+      {children}
+    </div>
+  );
+}
+
 
 export default function App() {
   return (
@@ -121,36 +164,39 @@ function Services() {
   return (
     <section id="services" className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>What We Do</SectionEyebrow>
-        <SectionTitle>
-          Services Built for <em className="not-italic text-gradient italic">Growth</em>
-        </SectionTitle>
-        <SectionLead>Every service is carefully executed to ensure your digital presence performs as hard as you do.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition"
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center text-primary-foreground mb-6">
-                <s.icon className="h-6 w-6" />
+        <ScrollReveal direction="left">
+          <SectionEyebrow>What We Do</SectionEyebrow>
+          <SectionTitle>
+            Services Built for <em className="not-italic text-gradient italic">Growth</em>
+          </SectionTitle>
+          <SectionLead>Every service is carefully executed to ensure your digital presence performs as hard as you do.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => (
+              <div
+                key={s.title}
+                className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center text-primary-foreground mb-6">
+                  <s.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.desc}</p>
+                <ul className="space-y-2">
+                  {s.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-2 text-sm text-foreground/80">
+                      <Check className="h-4 w-4 text-accent-blue" /> {b}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold mb-3">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.desc}</p>
-              <ul className="space-y-2">
-                {s.bullets.map((b) => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-foreground/80">
-                    <Check className="h-4 w-4 text-accent-blue" /> {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Pricing ---------------- */
 const plans = [
@@ -181,59 +227,62 @@ function Pricing() {
   return (
     <section id="pricing" className="py-28 px-6 bg-surface/40">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Transparent Pricing</SectionEyebrow>
-        <SectionTitle>
-          Plans for Every <em className="not-italic text-gradient italic">Ambition</em>
-        </SectionTitle>
-        <SectionLead>No hidden fees. No surprises. Just exceptional work at honest prices.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {plans.map((p) => {
-            const featured = p.tag === "Most Popular";
-            return (
-              <div
-                key={p.name}
-                className={`relative rounded-2xl border p-8 flex flex-col ${
-                  featured
-                    ? "border-accent-blue/50 bg-surface-elevated shadow-[var(--shadow-elevated)] md:-translate-y-4"
-                    : "border-border bg-surface"
-                }`}
-              >
-                {p.tag && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-accent text-primary-foreground text-xs font-semibold px-4 py-1">
-                    {p.tag}
-                  </span>
-                )}
-                <h3 className="text-lg font-semibold text-muted-foreground">{p.name}</h3>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-sm text-muted-foreground">from</span>
-                  <span className="text-3xl font-display font-bold text-gradient">{p.price}</span>
-                </div>
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                <ul className="mt-6 space-y-3 flex-1">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm">
-                      <Check className="h-4 w-4 text-accent-blue" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className={`mt-8 rounded-full text-center font-semibold py-3 transition ${
+        <ScrollReveal direction="right">
+          <SectionEyebrow>Transparent Pricing</SectionEyebrow>
+          <SectionTitle>
+            Plans for Every <em className="not-italic text-gradient italic">Ambition</em>
+          </SectionTitle>
+          <SectionLead>No hidden fees. No surprises. Just exceptional work at honest prices.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            {plans.map((p) => {
+              const featured = p.tag === "Most Popular";
+              return (
+                <div
+                  key={p.name}
+                  className={`relative rounded-2xl border p-8 flex flex-col ${
                     featured
-                      ? "bg-gradient-accent text-primary-foreground hover:opacity-90"
-                      : "border border-border bg-surface hover:bg-surface-elevated text-foreground"
+                      ? "border-accent-blue/50 bg-surface-elevated shadow-[var(--shadow-elevated)] md:-translate-y-4"
+                      : "border-border bg-surface"
                   }`}
                 >
-                  Get Started
-                </a>
-              </div>
-            );
-          })}
-        </div>
+                  {p.tag && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-accent text-primary-foreground text-xs font-semibold px-4 py-1">
+                      {p.tag}
+                    </span>
+                  )}
+                  <h3 className="text-lg font-semibold text-muted-foreground">{p.name}</h3>
+                  <div className="mt-4 flex items-baseline gap-1">
+                    <span className="text-sm text-muted-foreground">from</span>
+                    <span className="text-3xl font-display font-bold text-gradient">{p.price}</span>
+                  </div>
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm">
+                        <Check className="h-4 w-4 text-accent-blue" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#contact"
+                    className={`mt-8 rounded-full text-center font-semibold py-3 transition ${
+                      featured
+                        ? "bg-gradient-accent text-primary-foreground hover:opacity-90"
+                        : "border border-border bg-surface hover:bg-surface-elevated text-foreground"
+                    }`}
+                  >
+                    Get Started
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Projects ---------------- */
 const projects = [
@@ -255,43 +304,46 @@ function Projects() {
   return (
     <section id="projects" className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Our Work</SectionEyebrow>
-        <SectionTitle>
-          Projects We're <em className="not-italic text-gradient italic">Proud Of</em>
-        </SectionTitle>
-        <SectionLead>A selection of websites and applications we've crafted for forward-thinking clients.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition block"
-            >
-              <div className="aspect-[16/9] rounded-xl bg-gradient-accent/20 border border-border mb-6 relative overflow-hidden">
-                <div
-                  className="absolute inset-0 opacity-40"
-                  style={{ backgroundImage: "var(--gradient-hero-glow)" }}
-                />
-                <div className="absolute bottom-4 left-4 text-xs uppercase tracking-widest text-muted-foreground">
-                  {p.name}
+        <ScrollReveal direction="left">
+          <SectionEyebrow>Our Work</SectionEyebrow>
+          <SectionTitle>
+            Projects We're <em className="not-italic text-gradient italic">Proud Of</em>
+          </SectionTitle>
+          <SectionLead>A selection of websites and applications we've crafted for forward-thinking clients.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-2">
+            {projects.map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition block"
+              >
+                <div className="aspect-[16/9] rounded-xl bg-gradient-accent/20 border border-border mb-6 relative overflow-hidden">
+                  <div
+                    className="absolute inset-0 opacity-40"
+                    style={{ backgroundImage: "var(--gradient-hero-glow)" }}
+                  />
+                  <div className="absolute bottom-4 left-4 text-xs uppercase tracking-widest text-muted-foreground">
+                    {p.name}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  </div>
+                  <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition shrink-0" />
                 </div>
-                <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition shrink-0" />
-              </div>
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- About ---------------- */
 function About() {
@@ -303,7 +355,7 @@ function About() {
   ];
   return (
     <section id="about" className="py-28 px-6 bg-surface/40">
-      <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
+      <ScrollReveal direction="right" className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
         <div>
           <SectionEyebrow>Who We Are</SectionEyebrow>
           <h2 className="mt-4 font-display font-bold text-4xl md:text-5xl leading-tight">
@@ -342,10 +394,12 @@ function About() {
             </div>
           ))}
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
+
 }
+
 
 /* ---------------- Testimonials ---------------- */
 const testimonials = [
@@ -358,91 +412,97 @@ function Testimonials() {
   return (
     <section className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Kind Words</SectionEyebrow>
-        <SectionTitle>
-          What Clients <em className="not-italic text-gradient italic">Say</em>
-        </SectionTitle>
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <div key={i} className="rounded-2xl border border-border bg-surface p-8">
-              <Quote className="h-6 w-6 text-accent-blue mb-4" />
-              <p className="text-foreground/90 leading-relaxed">"{t.quote}"</p>
-              <div className="mt-6 text-sm">
-                <div className="font-semibold">— {t.name}</div>
-                <div className="text-muted-foreground">{t.role}</div>
+        <ScrollReveal direction="left">
+          <SectionEyebrow>Kind Words</SectionEyebrow>
+          <SectionTitle>
+            What Clients <em className="not-italic text-gradient italic">Say</em>
+          </SectionTitle>
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <div key={i} className="rounded-2xl border border-border bg-surface p-8">
+                <Quote className="h-6 w-6 text-accent-blue mb-4" />
+                <p className="text-foreground/90 leading-relaxed">"{t.quote}"</p>
+                <div className="mt-6 text-sm">
+                  <div className="font-semibold">— {t.name}</div>
+                  <div className="text-muted-foreground">{t.role}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Contact ---------------- */
 function Contact() {
   return (
     <section id="contact" className="py-28 px-6 bg-surface/40">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Get In Touch</SectionEyebrow>
-        <SectionTitle>
-          Ready to Build <em className="not-italic text-gradient italic">Something Great?</em>
-        </SectionTitle>
-        <SectionLead>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</SectionLead>
+        <ScrollReveal direction="right">
+          <SectionEyebrow>Get In Touch</SectionEyebrow>
+          <SectionTitle>
+            Ready to Build <em className="not-italic text-gradient italic">Something Great?</em>
+          </SectionTitle>
+          <SectionLead>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</SectionLead>
 
-        <div className="mt-16 grid lg:grid-cols-2 gap-10">
-          <div className="space-y-5">
-            <ContactRow icon={Mail} label="nkogallardo@gmail.com" href="mailto:nkogallardo@gmail.com" />
-            <ContactRow icon={Phone} label="+27 73 056 5426 (WhatsApp)" href="https://wa.me/27730565426" />
-            <ContactRow icon={MapPin} label="Johannesburg, South Africa" />
-            <ContactRow icon={Instagram} label="@nko_coding" href="https://www.instagram.com/nko_coding/" />
-          </div>
+          <div className="mt-16 grid lg:grid-cols-2 gap-10">
+            <div className="space-y-5">
+              <ContactRow icon={Mail} label="nkogallardo@gmail.com" href="mailto:nkogallardo@gmail.com" />
+              <ContactRow icon={Phone} label="+27 73 056 5426 (WhatsApp)" href="https://wa.me/27730565426" />
+              <ContactRow icon={MapPin} label="Johannesburg, South Africa" />
+              <ContactRow icon={Instagram} label="@nko_coding" href="https://www.instagram.com/nko_coding/" />
+            </div>
 
-          <form
-            action="https://formspree.io/f/xkgqzzky"
-            method="POST"
-            className="rounded-2xl border border-border bg-surface p-8 space-y-4"
-          >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="First Name" name="firstName" required />
-              <Field label="Last Name" name="lastName" required />
-            </div>
-            <Field label="Email Address" name="email" type="email" required />
-            <div>
-              <label className="text-sm text-muted-foreground mb-1.5 block">Interested Plan</label>
-              <select
-                name="plan"
-                className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                defaultValue=""
-              >
-                <option value="" disabled>Select a plan...</option>
-                <option>Basic (R500 – R1,000)</option>
-                <option>Standard (R1,500 – R3,000)</option>
-                <option>Premium (R5,000 – R10,000+)</option>
-                <option>Custom Project</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground mb-1.5 block">Tell Us About Your Project</label>
-              <textarea
-                name="message"
-                rows={5}
-                className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                placeholder="Goals, timeline, references..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-full bg-gradient-accent text-primary-foreground font-semibold py-3.5 hover:opacity-90 transition"
+            <form
+              action="https://formspree.io/f/xkgqzzky"
+              method="POST"
+              className="rounded-2xl border border-border bg-surface p-8 space-y-4"
             >
-              Send Message
-            </button>
-          </form>
-        </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Field label="First Name" name="firstName" required />
+                <Field label="Last Name" name="lastName" required />
+              </div>
+              <Field label="Email Address" name="email" type="email" required />
+              <div>
+                <label className="text-sm text-muted-foreground mb-1.5 block">Interested Plan</label>
+                <select
+                  name="plan"
+                  className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select a plan...</option>
+                  <option>Basic (R500 – R1,000)</option>
+                  <option>Standard (R1,500 – R3,000)</option>
+                  <option>Premium (R5,000 – R10,000+)</option>
+                  <option>Custom Project</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground mb-1.5 block">Tell Us About Your Project</label>
+                <textarea
+                  name="message"
+                  rows={5}
+                  className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                  placeholder="Goals, timeline, references..."
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full rounded-full bg-gradient-accent text-primary-foreground font-semibold py-3.5 hover:opacity-90 transition"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 function Field({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
@@ -474,20 +534,23 @@ function ContactRow({ icon: Icon, label, href }: { icon: typeof Mail; label: str
 function Footer() {
   return (
     <footer className="border-t border-border py-10 px-6 text-center text-sm text-muted-foreground">
-      <div className="font-display font-bold text-lg">
-        <span className="text-foreground">NKO</span>
-        <span className="text-gradient">CODING</span>
-      </div>
-      <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
-      <p className="mt-2">
-        Created by{" "}
-        <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
-          NKOgallardo.link
-        </a>
-      </p>
+      <ScrollReveal direction="up">
+        <div className="font-display font-bold text-lg">
+          <span className="text-foreground">NKO</span>
+          <span className="text-gradient">CODING</span>
+        </div>
+        <p className="mt-3">© {new Date().getFullYear()} NKO CODING. Crafted in Johannesburg.</p>
+        <p className="mt-2">
+          Created by{" "}
+          <a href="https://nkogallardo.link" target="_blank" rel="noreferrer" className="text-accent-blue hover:underline">
+            NKOgallardo.link
+          </a>
+        </p>
+      </ScrollReveal>
     </footer>
   );
 }
+
 
 /* ---------------- Section helpers ---------------- */
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
