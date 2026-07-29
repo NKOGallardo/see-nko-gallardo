@@ -411,26 +411,29 @@ function Testimonials() {
   return (
     <section className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Kind Words</SectionEyebrow>
-        <SectionTitle>
-          What Clients <em className="not-italic text-gradient italic">Say</em>
-        </SectionTitle>
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <div key={i} className="rounded-2xl border border-border bg-surface p-8">
-              <Quote className="h-6 w-6 text-accent-blue mb-4" />
-              <p className="text-foreground/90 leading-relaxed">"{t.quote}"</p>
-              <div className="mt-6 text-sm">
-                <div className="font-semibold">— {t.name}</div>
-                <div className="text-muted-foreground">{t.role}</div>
+        <ScrollReveal direction="left">
+          <SectionEyebrow>Kind Words</SectionEyebrow>
+          <SectionTitle>
+            What Clients <em className="not-italic text-gradient italic">Say</em>
+          </SectionTitle>
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <div key={i} className="rounded-2xl border border-border bg-surface p-8">
+                <Quote className="h-6 w-6 text-accent-blue mb-4" />
+                <p className="text-foreground/90 leading-relaxed">"{t.quote}"</p>
+                <div className="mt-6 text-sm">
+                  <div className="font-semibold">— {t.name}</div>
+                  <div className="text-muted-foreground">{t.role}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Contact ---------------- */
 function Contact() {
