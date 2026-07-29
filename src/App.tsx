@@ -227,59 +227,62 @@ function Pricing() {
   return (
     <section id="pricing" className="py-28 px-6 bg-surface/40">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Transparent Pricing</SectionEyebrow>
-        <SectionTitle>
-          Plans for Every <em className="not-italic text-gradient italic">Ambition</em>
-        </SectionTitle>
-        <SectionLead>No hidden fees. No surprises. Just exceptional work at honest prices.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {plans.map((p) => {
-            const featured = p.tag === "Most Popular";
-            return (
-              <div
-                key={p.name}
-                className={`relative rounded-2xl border p-8 flex flex-col ${
-                  featured
-                    ? "border-accent-blue/50 bg-surface-elevated shadow-[var(--shadow-elevated)] md:-translate-y-4"
-                    : "border-border bg-surface"
-                }`}
-              >
-                {p.tag && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-accent text-primary-foreground text-xs font-semibold px-4 py-1">
-                    {p.tag}
-                  </span>
-                )}
-                <h3 className="text-lg font-semibold text-muted-foreground">{p.name}</h3>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-sm text-muted-foreground">from</span>
-                  <span className="text-3xl font-display font-bold text-gradient">{p.price}</span>
-                </div>
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                <ul className="mt-6 space-y-3 flex-1">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm">
-                      <Check className="h-4 w-4 text-accent-blue" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className={`mt-8 rounded-full text-center font-semibold py-3 transition ${
+        <ScrollReveal direction="right">
+          <SectionEyebrow>Transparent Pricing</SectionEyebrow>
+          <SectionTitle>
+            Plans for Every <em className="not-italic text-gradient italic">Ambition</em>
+          </SectionTitle>
+          <SectionLead>No hidden fees. No surprises. Just exceptional work at honest prices.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            {plans.map((p) => {
+              const featured = p.tag === "Most Popular";
+              return (
+                <div
+                  key={p.name}
+                  className={`relative rounded-2xl border p-8 flex flex-col ${
                     featured
-                      ? "bg-gradient-accent text-primary-foreground hover:opacity-90"
-                      : "border border-border bg-surface hover:bg-surface-elevated text-foreground"
+                      ? "border-accent-blue/50 bg-surface-elevated shadow-[var(--shadow-elevated)] md:-translate-y-4"
+                      : "border-border bg-surface"
                   }`}
                 >
-                  Get Started
-                </a>
-              </div>
-            );
-          })}
-        </div>
+                  {p.tag && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-accent text-primary-foreground text-xs font-semibold px-4 py-1">
+                      {p.tag}
+                    </span>
+                  )}
+                  <h3 className="text-lg font-semibold text-muted-foreground">{p.name}</h3>
+                  <div className="mt-4 flex items-baseline gap-1">
+                    <span className="text-sm text-muted-foreground">from</span>
+                    <span className="text-3xl font-display font-bold text-gradient">{p.price}</span>
+                  </div>
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm">
+                        <Check className="h-4 w-4 text-accent-blue" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#contact"
+                    className={`mt-8 rounded-full text-center font-semibold py-3 transition ${
+                      featured
+                        ? "bg-gradient-accent text-primary-foreground hover:opacity-90"
+                        : "border border-border bg-surface hover:bg-surface-elevated text-foreground"
+                    }`}
+                  >
+                    Get Started
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Projects ---------------- */
 const projects = [
