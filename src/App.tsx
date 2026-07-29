@@ -164,36 +164,39 @@ function Services() {
   return (
     <section id="services" className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>What We Do</SectionEyebrow>
-        <SectionTitle>
-          Services Built for <em className="not-italic text-gradient italic">Growth</em>
-        </SectionTitle>
-        <SectionLead>Every service is carefully executed to ensure your digital presence performs as hard as you do.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition"
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center text-primary-foreground mb-6">
-                <s.icon className="h-6 w-6" />
+        <ScrollReveal direction="left">
+          <SectionEyebrow>What We Do</SectionEyebrow>
+          <SectionTitle>
+            Services Built for <em className="not-italic text-gradient italic">Growth</em>
+          </SectionTitle>
+          <SectionLead>Every service is carefully executed to ensure your digital presence performs as hard as you do.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => (
+              <div
+                key={s.title}
+                className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center text-primary-foreground mb-6">
+                  <s.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.desc}</p>
+                <ul className="space-y-2">
+                  {s.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-2 text-sm text-foreground/80">
+                      <Check className="h-4 w-4 text-accent-blue" /> {b}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold mb-3">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.desc}</p>
-              <ul className="space-y-2">
-                {s.bullets.map((b) => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-foreground/80">
-                    <Check className="h-4 w-4 text-accent-blue" /> {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- Pricing ---------------- */
 const plans = [
