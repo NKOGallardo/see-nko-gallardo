@@ -355,8 +355,8 @@ function About() {
   ];
   return (
     <section id="about" className="py-28 px-6 bg-surface/40">
-      <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
-        <ScrollReveal direction="right">
+      <ScrollReveal direction="right" className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
+        <div>
           <SectionEyebrow>Who We Are</SectionEyebrow>
           <h2 className="mt-4 font-display font-bold text-4xl md:text-5xl leading-tight">
             Craftsmanship Meets <em className="not-italic text-gradient italic">Technology</em>
@@ -380,7 +380,7 @@ function About() {
           >
             Let's Talk <ArrowRight className="h-4 w-4" />
           </a>
-        </ScrollReveal>
+        </div>
         <div className="grid gap-4">
           {highlights.map((h) => (
             <div key={h.title} className="rounded-2xl border border-border bg-surface p-6 flex gap-4 items-start">
@@ -394,9 +394,10 @@ function About() {
             </div>
           ))}
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
+
 }
 
 
