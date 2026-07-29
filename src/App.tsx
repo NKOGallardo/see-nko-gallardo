@@ -440,65 +440,68 @@ function Contact() {
   return (
     <section id="contact" className="py-28 px-6 bg-surface/40">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Get In Touch</SectionEyebrow>
-        <SectionTitle>
-          Ready to Build <em className="not-italic text-gradient italic">Something Great?</em>
-        </SectionTitle>
-        <SectionLead>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</SectionLead>
+        <ScrollReveal direction="right">
+          <SectionEyebrow>Get In Touch</SectionEyebrow>
+          <SectionTitle>
+            Ready to Build <em className="not-italic text-gradient italic">Something Great?</em>
+          </SectionTitle>
+          <SectionLead>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</SectionLead>
 
-        <div className="mt-16 grid lg:grid-cols-2 gap-10">
-          <div className="space-y-5">
-            <ContactRow icon={Mail} label="nkogallardo@gmail.com" href="mailto:nkogallardo@gmail.com" />
-            <ContactRow icon={Phone} label="+27 73 056 5426 (WhatsApp)" href="https://wa.me/27730565426" />
-            <ContactRow icon={MapPin} label="Johannesburg, South Africa" />
-            <ContactRow icon={Instagram} label="@nko_coding" href="https://www.instagram.com/nko_coding/" />
-          </div>
+          <div className="mt-16 grid lg:grid-cols-2 gap-10">
+            <div className="space-y-5">
+              <ContactRow icon={Mail} label="nkogallardo@gmail.com" href="mailto:nkogallardo@gmail.com" />
+              <ContactRow icon={Phone} label="+27 73 056 5426 (WhatsApp)" href="https://wa.me/27730565426" />
+              <ContactRow icon={MapPin} label="Johannesburg, South Africa" />
+              <ContactRow icon={Instagram} label="@nko_coding" href="https://www.instagram.com/nko_coding/" />
+            </div>
 
-          <form
-            action="https://formspree.io/f/xkgqzzky"
-            method="POST"
-            className="rounded-2xl border border-border bg-surface p-8 space-y-4"
-          >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="First Name" name="firstName" required />
-              <Field label="Last Name" name="lastName" required />
-            </div>
-            <Field label="Email Address" name="email" type="email" required />
-            <div>
-              <label className="text-sm text-muted-foreground mb-1.5 block">Interested Plan</label>
-              <select
-                name="plan"
-                className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                defaultValue=""
-              >
-                <option value="" disabled>Select a plan...</option>
-                <option>Basic (R500 – R1,000)</option>
-                <option>Standard (R1,500 – R3,000)</option>
-                <option>Premium (R5,000 – R10,000+)</option>
-                <option>Custom Project</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground mb-1.5 block">Tell Us About Your Project</label>
-              <textarea
-                name="message"
-                rows={5}
-                className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                placeholder="Goals, timeline, references..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-full bg-gradient-accent text-primary-foreground font-semibold py-3.5 hover:opacity-90 transition"
+            <form
+              action="https://formspree.io/f/xkgqzzky"
+              method="POST"
+              className="rounded-2xl border border-border bg-surface p-8 space-y-4"
             >
-              Send Message
-            </button>
-          </form>
-        </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Field label="First Name" name="firstName" required />
+                <Field label="Last Name" name="lastName" required />
+              </div>
+              <Field label="Email Address" name="email" type="email" required />
+              <div>
+                <label className="text-sm text-muted-foreground mb-1.5 block">Interested Plan</label>
+                <select
+                  name="plan"
+                  className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select a plan...</option>
+                  <option>Basic (R500 – R1,000)</option>
+                  <option>Standard (R1,500 – R3,000)</option>
+                  <option>Premium (R5,000 – R10,000+)</option>
+                  <option>Custom Project</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground mb-1.5 block">Tell Us About Your Project</label>
+                <textarea
+                  name="message"
+                  rows={5}
+                  className="w-full rounded-lg bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                  placeholder="Goals, timeline, references..."
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full rounded-full bg-gradient-accent text-primary-foreground font-semibold py-3.5 hover:opacity-90 transition"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 function Field({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
