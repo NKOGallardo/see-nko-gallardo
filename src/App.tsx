@@ -304,43 +304,46 @@ function Projects() {
   return (
     <section id="projects" className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionEyebrow>Our Work</SectionEyebrow>
-        <SectionTitle>
-          Projects We're <em className="not-italic text-gradient italic">Proud Of</em>
-        </SectionTitle>
-        <SectionLead>A selection of websites and applications we've crafted for forward-thinking clients.</SectionLead>
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition block"
-            >
-              <div className="aspect-[16/9] rounded-xl bg-gradient-accent/20 border border-border mb-6 relative overflow-hidden">
-                <div
-                  className="absolute inset-0 opacity-40"
-                  style={{ backgroundImage: "var(--gradient-hero-glow)" }}
-                />
-                <div className="absolute bottom-4 left-4 text-xs uppercase tracking-widest text-muted-foreground">
-                  {p.name}
+        <ScrollReveal direction="left">
+          <SectionEyebrow>Our Work</SectionEyebrow>
+          <SectionTitle>
+            Projects We're <em className="not-italic text-gradient italic">Proud Of</em>
+          </SectionTitle>
+          <SectionLead>A selection of websites and applications we've crafted for forward-thinking clients.</SectionLead>
+          <div className="mt-16 grid gap-6 md:grid-cols-2">
+            {projects.map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-2xl border border-border bg-surface p-8 hover:bg-surface-elevated transition block"
+              >
+                <div className="aspect-[16/9] rounded-xl bg-gradient-accent/20 border border-border mb-6 relative overflow-hidden">
+                  <div
+                    className="absolute inset-0 opacity-40"
+                    style={{ backgroundImage: "var(--gradient-hero-glow)" }}
+                  />
+                  <div className="absolute bottom-4 left-4 text-xs uppercase tracking-widest text-muted-foreground">
+                    {p.name}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  </div>
+                  <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition shrink-0" />
                 </div>
-                <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition shrink-0" />
-              </div>
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- About ---------------- */
 function About() {
