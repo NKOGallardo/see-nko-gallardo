@@ -23,4 +23,4 @@
 ## 🧠 About NKO Coding
 
 ```diff
-+ Not learning to code. Building with it.
++ Not learning to code. Building with it. (adding to my portfoio)
