@@ -13,7 +13,7 @@
   <!-- BADGES -->
   <img src="https://img.shields.io/badge/Brand-NKO%20Coding.codes-4E5F72?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Focus-Web%20Development-1A2330?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Level-Student%20Developer-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Level-Professional%20Developer-blue?style=for-the-badge"/>
   <br>
   <img src="https://img.shields.io/badge/We are-LIVE-red?style=for-the-badge"/>
 </p>
