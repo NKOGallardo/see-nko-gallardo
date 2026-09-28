@@ -25,3 +25,4 @@
 
 ```diff
 + Not learning to code. Building with it. (adding to my portfoio)
+soon to shutdown
