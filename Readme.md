@@ -16,6 +16,7 @@
   <img src="https://img.shields.io/badge/Level-Professional%20Developer-blue?style=for-the-badge"/>
   <br>
   <img src="https://img.shields.io/badge/We are-LIVE-red?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Soon to clone-green?style=for-the-badge"/>
 </p>
 
 ---
